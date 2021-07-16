@@ -1,20 +1,20 @@
 import cherrypy
 import re, json
-from movies_library import _movie_database
+from pokemon_library import _pokemon_database
 
 class RatingsController(object):
 
 	def __init__(self, mdb=None):
-		if mdb is None:
-			self.mdb= _movie_database()
-			self.mdb.load_ratings('ratings.dat')
+		if pdb is None:
+			self.pdb= _pokemon_database()
+		#	self.pdb.load_ratings('ratings.dat') will need to change this
 		else:
-			self.mdb = mdb
+			self.pdb = pdb
 
-	def GET_KEY(self, movie_id):
+	def GET_KEY(self, pokemon_id):
 		output = {'result' : 'success'}
-		movie_id = int(movie_id)
-		output['movie_id'] = movie_id
-		output['rating'] = self.mdb.get_rating(movie_id)
+		pokemon_id = int(pokemon_id)
+		output['pokemon_id'] = pokemon_id
+		output['rating'] = self.pdb.get_rating(pokemon_id)
 
 		return json.dumps(output)
