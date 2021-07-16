@@ -5,24 +5,24 @@ from pokemon_library import _pokemon_database
 class pokemonController(object):
 
 	def __init__(self, mdb=None):
-		if mdb is None:
-			self.mdb = _movie_database()
+		if pdb is None:
+			self.pdb = _pokemon_database()
 		else:
-			self.mdb = mdb
+			self.pdb = pdb
 
-		self.mdb.load_movies('movies.dat')
+		self.pdb.load_pokemon('pokemon.json') # was movies.dat
 
 
-	def GET_KEY(self, movie_id):
+	def GET_KEY(self, pokemon_id):
 		output = {'result' : 'success'}
-		movie_id = int(movie_id)
+		pokemon_id = int(pokemon_id)
 
 		try:
-			movie = self.mdb.get_movie(movie_id)
-			if movie is not None:
-				output['id'] = movie_id
-				output['title'] = movie[0]
-				output['genres'] = movie[1]
+			pokemon = self.pdb.get_pokemon(pokemon_id)
+			if pokemon is not None:
+				output['id'] = pokemon_id
+			#	output['title'] = movie[0] figure this out with JSON formatted file
+			#	output['genres'] = movie[1]
 
 			else:
 				output ['result'] = 'error'
@@ -34,28 +34,28 @@ class pokemonController(object):
 
 		return json.dumps(output)
 
-	def PUT_KEY(self, movie_id):
+	def PUT_KEY(self, pokemon_id):
 		output = {'result' : 'success'}
-		movie_id = int(movie_id)
+		pokemon_id = int(pokemon_id)
 
 		data = json.loads(cherrypy.request.body.read().decode('utf-8'))
 
-		movie = list()
-		movie.append(data['title'])
-		movie.append(data['genres'])
+		pokemon = list()
+		pokemon.append(data['name'])
+		pokemon.append(data['type'])
 
-		self.mdb.set_movie(movie_id, movie)
+		self.pdb.set_pokemon(pokemon_id, pokemon)
 
 		return json.dumps(output)
 
-	def DELETE_KEY(self, movie_id):
+	def DELETE_KEY(self, pokemon_id):
 		
 		output = {'result' : 'success'}
 
-		movie_id = int(movie_id)
+		pokemon_id = int(pokemon_id)
 
 		try:
-			self.mdb.delete_movie(movie_id)
+			self.pdb.delete_pokemon(pokemon_id)
 		except Exception as ex:
 			output['result'] = 'failure'
 			output['message'] = str(ex)
@@ -67,10 +67,10 @@ class pokemonController(object):
 		output['movies'] = []
 
 		try:
-			for mid in self.mdb.get_movies():
-				movie = self.mdb.get_movie(mid)
-				dmovie = {'id': mid, 'title' : movie[0], 'genres' : movie[1]}
-				output['movies'].append(dmovie)
+			for pid in self.pdb.get_pokemon():
+				pokemon = self.pdb.get_pokemon(pid)
+			#	dpokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
+			#	output['pokemon'].append(dpokemon) 		JSON format check
 
 		except Exception as ex:
 			output['result'] = 'error'
