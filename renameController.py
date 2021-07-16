@@ -1,8 +1,8 @@
 import cherrypy
 import re, json
-from movies_library import _movie_database
+from pokemon_library import _pokemon_database
 
-class MovieController(object):
+class pokemonController(object):
 
 	def __init__(self, mdb=None):
 		if mdb is None:
