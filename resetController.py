@@ -1,39 +1,39 @@
 import cherrypy
 import re, json
-from movies_library import _movie_database
+from pokemon_library import _pokemon_database
 
 class ResetController(object):
 
 	def __init__(self, mdb=None):
-		if mdb is None:
-			self.mdb = _movie_database()
+		if pdb is None:
+			self.pdb = _pokemon_database()
 		else:
-			self.mdb = mdb
+			self.pdb = pdb
 
 	def PUT_INDEX(self):
 		output = {'result' : 'success'}
 
 		data = json.loads(cherrypy.request.body.read().decode())
 
-		self.mdb.__init__()
-		self.mdb.load_movies('movies.dat')
-		self.mdb.load_ratings('ratings.dat')
+		self.pdb.__init__()
+		self.pdb.load_pokemon('pokemon.json')
+		#self.pdb.load_ratings('ratings.dat') replace with images or seperate type file?
 
 		return json.dumps(output)
 
-	def PUT_KEY(self, movie_id):
+	def PUT_KEY(self, pokemon_id):
 		output = {'result' : 'success'}
-		mid = int(movie_id)
+		pid = int(pokemon_id)
 
 		try:
 			data = json.loads(cherrypy.request.body.read().decode())
 
-			mdbtmp = _movie_database()
-			mdbtmp.load_movies('movies.dat')
+			pdbtmp = _pokemon_database()
+			pdbtmp.load_pokemon('pokemon.json')
 
-			movie = mdbtmp.get_movie(mid)
+			pokemon = pdbtmp.get_pokemon(pid)
 
-			self.mdb.set_movie(mid, movie)
+			self.pdb.set_pokemon(pid, pokemon)
 
 		except Exception as ex:
 			output['result'] = 'error'
