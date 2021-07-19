@@ -4,7 +4,7 @@ from pokemon_library import _pokemon_database
 
 class RatingsController(object):
 
-	def __init__(self, mdb=None):
+	def __init__(self, pdb=None):
 		if pdb is None:
 			self.pdb= _pokemon_database()
 		#	self.pdb.load_ratings('ratings.dat') will need to change this
