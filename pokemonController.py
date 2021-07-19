@@ -13,14 +13,16 @@ class pokemonController(object):
 		self.pdb.load_pokemon('pokemon.json') # was movies.dat
 
 
-	def GET_KEY(self, pokemon_id):
+	def GET_KEY(self, pokemon_name):
 		output = {'result' : 'success'}
-		pokemon_id = int(pokemon_id)
+		pokemon_name = str(pokemon_name)
 
 		try:
-			pokemon = self.pdb.get_pokemon(pokemon_id)
+			pokemon = self.pdb.get_pokemon(pokemon_name)
 			if pokemon is not None:
-				output['id'] = pokemon_id
+				output['name'] = pokemon[0]
+				output['types'] = pokemon[1]
+
 			#	output['title'] = movie[0] figure this out with JSON formatted file
 			#	output['genres'] = movie[1]
 
@@ -34,17 +36,17 @@ class pokemonController(object):
 
 		return json.dumps(output)
 
-	def PUT_KEY(self, pokemon_id):
+	def PUT_KEY(self, pokemon_name):
 		output = {'result' : 'success'}
-		pokemon_id = int(pokemon_id)
+		pokemon_name = str(pokemon_name)
 
 		data = json.loads(cherrypy.request.body.read().decode('utf-8'))
 
 		pokemon = list()
 		pokemon.append(data['name'])
 		pokemon.append(data['type'])
-
-		self.pdb.set_pokemon(pokemon_id, pokemon)
+		pokemon.append(data['image'])
+		self.pdb.set_pokemon(pokemon_name, pokemon)
 
 		return json.dumps(output)
 
@@ -52,10 +54,10 @@ class pokemonController(object):
 		
 		output = {'result' : 'success'}
 
-		pokemon_id = int(pokemon_id)
+		pokemon_name = str(pokemon_name)
 
 		try:
-			self.pdb.delete_pokemon(pokemon_id)
+			self.pdb.delete_pokemon(pokemon_name)
 		except Exception as ex:
 			output['result'] = 'failure'
 			output['message'] = str(ex)
@@ -64,12 +66,12 @@ class pokemonController(object):
 
 	def GET_INDEX(self):
 		output = {'result' : 'success'}
-		output['movies'] = []
+		output['pokemon'] = []
 
 		try:
-			for pid in self.pdb.get_pokemon():
-				pokemon = self.pdb.get_pokemon(pid)
-			#	dpokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
+			for pid in self.pdb.pokemon_data:
+				output['pokemon'].append(self.pdb.get_pokemon(pid))
+			#	pokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
 			#	output['pokemon'].append(dpokemon) 		JSON format check
 
 		except Exception as ex:
@@ -83,11 +85,12 @@ class pokemonController(object):
 		data = json.loads(cherrypy.request.body.read().decode('utf-8'))
 
 		try:
-			movies = sorted(list(self.mdb.get_movies()))
-			newID = int(movies[-1]) + 1
-			self.mdb.movie_names[newID] = data['title']
-			self.mdb.movie_genres[newID] = data['genres']
-			self.mdb.movie_ratings[newID] = dict()
+			newID = int(pokemon_data[-1]) + 1
+			self.pdb.pokemon_data.append()
+			self.pdb.pokemon_data[newID]['id'] = newID
+			self.pdb.pokemon_data[newID]['name'] = data['name']
+			self.pdb.pokemon_data[newID]['types'] = data['types']
+
 			output['id'] = newID
 
 		except Exception as ex:
@@ -102,9 +105,9 @@ class pokemonController(object):
 		output = {'result' : 'success'}
 
 		try:
-			allMovies = list(self.mdb.get_movies())
-			for movID in allMovies:
-				self.mdb.delete_movie(movID)
+			allPokemon = list(self.mdb.get_pokemon())
+			for pID in allPokemon:
+				self.mdb.delete_pokemon(pID)
 
 		except Exception as ex:
 			output['result'] ='failure'

@@ -2,11 +2,11 @@ import unittest
 import requests
 import json
 
-class TestMoviesIndex(unittest.TestCase):
+class TestpokemonIndex(unittest.TestCase):
 
-    SITE_URL = 'http://localhost:510XX' # replace with your assigned port id
+    SITE_URL = 'http://localhost:51055' # replace with your assigned port id
     print("Testing for server: " + SITE_URL)
-    MOVIES_URL = SITE_URL + '/movies/'
+    POKEMON_URL = SITE_URL + '/pokemon/'
     RESET_URL = SITE_URL + '/reset/'
 
     def reset_data(self):
@@ -20,53 +20,53 @@ class TestMoviesIndex(unittest.TestCase):
         except ValueError:
             return False
 
-    def test_movies_index_get(self):
+    def test_pokemon_index_get(self):
         self.reset_data()
-        r = requests.get(self.MOVIES_URL)
+        r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
 
-        testmovie = {}
-        movies = resp['movies']
-        for movie in movies:
-            if movie['id'] == 32:
-                testmovie = movie
+        testpokemon = {}
+        pokemon = resp['pokemon']
+        for pokemon in pokemon:
+            if pokemon[5] == 'Charizard':
+                testpokemon = pokemon
 
-        self.assertEqual(testmovie['title'], 'Twelve Monkeys (1995)')
-        self.assertEqual(testmovie['genres'], 'Drama|Sci-Fi')
+        self.assertEqual(testpokemon['name'], 'Charizard')
+        self.assertEqual(testpokemon['type'][0], 'Fire')
 
-    def test_movies_index_post(self):
-        self.reset_data()
-
-        m = {}
-        m['title'] = 'ABC'
-        m['genres'] = 'Sci-Fi|Fantasy'
-        r = requests.post(self.MOVIES_URL, data = json.dumps(m))
-        self.assertTrue(self.is_json(r.content.decode()))
-        resp = json.loads(r.content.decode())
-        self.assertEqual(resp['result'], 'success')
-        self.assertEqual(resp['id'], 3953)
-
-        r = requests.get(self.MOVIES_URL + str(resp['id']))
-        self.assertTrue(self.is_json(r.content.decode()))
-        resp = json.loads(r.content.decode())
-        self.assertEqual(resp['title'], m['title'])
-        self.assertEqual(resp['genres'], m['genres'])
-
-    def test_movies_index_delete(self):
+    def test_pokemon_index_post(self):
         self.reset_data()
 
         m = {}
-        r = requests.delete(self.MOVIES_URL, data = json.dumps(m))
+        m['name'] = 'Yaseen'
+        m['type'] = 'Water'
+        r = requests.post(self.POKEMON_URL, data = json.dumps(m))
+        self.assertTrue(self.is_json(r.content.decode()))
+        resp = json.loads(r.content.decode())
+        self.assertEqual(resp['result'], 'success')
+        self.assertEqual(resp['id'], 810)
+
+        r = requests.get(self.POKEMON_URL + str(resp['name']))
+        self.assertTrue(self.is_json(r.content.decode()))
+        resp = json.loads(r.content.decode())
+        self.assertEqual(resp['name'], m['name'])
+        self.assertEqual(resp['type'], m['type'])
+
+    def test_pokemon_index_delete(self):
+        self.reset_data()
+
+        m = {}
+        r = requests.delete(self.POKEMON_URL, data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         self.assertEqual(resp['result'], 'success')
 
-        r = requests.get(self.MOVIES_URL)
+        r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        movies = resp['movies']
-        self.assertFalse(movies)
+        pokemon = resp['pokemon']
+        self.assertFalse(pokemon)
 
 if __name__ == "__main__":
     unittest.main()
