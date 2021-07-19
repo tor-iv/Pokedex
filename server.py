@@ -1,35 +1,33 @@
 import cherrypy
-from moviesController import MovieController
+from pokemonController import pokemonController
 from resetController import ResetController
-from ratingsController import RatingsController
-from movies_library import _movie_database
+from pokemon_library import _pokemon_database
 
 def start_service():
 	dispatcher = cherrypy.dispatch.RoutesDispatcher()
 
-	mdb = _movie_database()
+	pdb = _pokemon_database()
 
-	movieController = MovieController(mdb=mdb)
-	resetController = ResetController(mdb=mdb)
-	ratingsController = RatingsController(mdb=mdb)
+	pokemonController = PokemonController(pdb=pdb)
+	resetController = ResetController(pdb=pdb)
+	typeController = typeController(pdb=pdb)
 
-	dispatcher.connect('movie_get', '/movies/:movie_id', controller=movieController, action = 'GET_KEY', conditions=dict(method=['GET']))
-	dispatcher.connect('movie_put', '/movies/:movie_id', controller=movieController, action = 'PUT_KEY', conditions=dict(method=['PUT']))
-	dispatcher.connect('movie_delete', '/movies/:movie_id', controller=movieController, action = 'DELETE_KEY', conditions=dict(method=['DELETE']))
-	dispatcher.connect('movie_index_get', '/movies/', controller=movieController, action = 'GET_INDEX', conditions=dict(method=['GET']))
-	dispatcher.connect('movie_index_post', '/movies/', controller=movieController, action = 'POST_INDEX', conditions=dict(method=['POST']))
-	dispatcher.connect('movie_index_delete', '/movies/', controller=movieController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
+	dispatcher.connect('pokemon_get', '/pokemon/:pokemon_id', controller=pokemonController, action = 'GET_KEY', conditions=dict(method=['GET']))
+	dispatcher.connect('pokemon_put', '/pokemon/:pokemon_id', controller=pokemonController, action = 'PUT_KEY', conditions=dict(method=['PUT']))
+	dispatcher.connect('pokemon_delete', '/pokemon/:pokemon_id', controller=pokemonController, action = 'DELETE_KEY', conditions=dict(method=['DELETE']))
+	dispatcher.connect('pokemon_index_get', '/pokemon/', controller=pokemonController, action = 'GET_INDEX', conditions=dict(method=['GET']))
+	dispatcher.connect('pokemon_index_post', '/pokemon/', controller=pokemonController, action = 'POST_INDEX', conditions=dict(method=['POST']))
+	dispatcher.connect('pokemon_index_delete', '/pokemon/', controller=pokeminController, action = 'DELETE_INDEX', conditions=dict(method=['DELETE']))
 
 	dispatcher.connect('reset_put', '/reset/:movie_id', controller=resetController, action = 'PUT_KEY', conditions=dict(method=['PUT']))
 	dispatcher.connect('reset_index_put', '/reset/', controller=resetController, action = 'PUT_INDEX', conditions=dict(method=['PUT']))
 
-	dispatcher.connect('rating_get', '/ratings/:movie_id', controller=ratingsController, action='GET_KEY', conditions=dict(method=['GET']))
 
 	conf = {
 		'global' : {
 			'server.thread_pool': 5,
 			'server.socket_host' : 'localhost',
-			'server.socket_port': 510XX
+			'server.socket_port': 51055
 		},
 	'/': {
 		'request.dispatch' : dispatcher,
