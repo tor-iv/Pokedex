@@ -26,7 +26,8 @@ class _pokemon_database:
                     name = self.pokemon_data[i]['name']['english']
                     types = self.pokemon_data[i]['type']
                     stats = self.pokemon_data[i]['base']
-                    pokemon = list((name, types, stats))
+                    image = NULL
+                    pokemon = list((name, types, stats, movie))
         except Exception as ex:
             pokemon = None
         return pokemon
@@ -36,7 +37,10 @@ class _pokemon_database:
             if lower(i['name']['english']) == lower(name):
                 self.pokemon_data[i]['name']['english'] = pokemon[0]
                 self.pokemon_data[i]['type'] = pokemon[1]
-                self.pokemon_data[i]['image'] = pokemon[2]
+                if pokemon[2]:
+                    self.pokemon_data[i]['base'] = pokemon[2]
+                if pokemon[3]:
+                    self.pokemon_data[i]['image'] = pokemon[3]
 
 
     def delete_pokemon(self, name):
@@ -47,7 +51,7 @@ class _pokemon_database:
 if __name__ == "__main__":
     pdb = _pokemon_database()
     #### pokemon ########
-    pdb.load_pokemons('pokemon.json')
+    pdb.load_pokemon()
     pokemon = pdb.get_pokemon('Bulbasaur')
     print(pokemon[0])
     pokemon[0] = 'ABC'

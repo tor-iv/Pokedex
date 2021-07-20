@@ -4,7 +4,7 @@ from pokemon_library import _pokemon_database
 
 class ResetController(object):
 
-	def __init__(self, mdb=None):
+	def __init__(self, pdb=None):
 		if pdb is None:
 			self.pdb = _pokemon_database()
 		else:
@@ -23,7 +23,7 @@ class ResetController(object):
 
 	def PUT_KEY(self, pokemon_id):
 		output = {'result' : 'success'}
-		pid = int(pokemon_id)
+		pid = str(pokemon_id)
 
 		try:
 			data = json.loads(cherrypy.request.body.read().decode())
@@ -32,7 +32,7 @@ class ResetController(object):
 			pdbtmp.load_pokemon('pokemon.json')
 
 			pokemon = pdbtmp.get_pokemon(pid)
-
+			
 			self.pdb.set_pokemon(pid, pokemon)
 
 		except Exception as ex:

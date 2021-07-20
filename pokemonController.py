@@ -45,6 +45,7 @@ class PokemonController(object):
 		pokemon = list()
 		pokemon.append(data['name'])
 		pokemon.append(data['type'])
+		pokemon.append(data['base'])
 		pokemon.append(data['image'])
 		self.pdb.set_pokemon(pokemon_name, pokemon)
 
