@@ -2,7 +2,7 @@ import cherrypy
 import re, json
 from pokemon_library import _pokemon_database
 
-class pokemonController(object):
+class PokemonController(object):
 
 	def __init__(self, mdb=None):
 		if pdb is None:
@@ -22,7 +22,7 @@ class pokemonController(object):
 			if pokemon is not None:
 				output['name'] = pokemon[0]
 				output['types'] = pokemon[1]
-
+				output['stats'] = pokemon[2]
 			#	output['title'] = movie[0] figure this out with JSON formatted file
 			#	output['genres'] = movie[1]
 
