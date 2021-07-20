@@ -2,6 +2,7 @@ import cherrypy
 from pokemonController import PokemonController
 from resetController import ResetController
 from pokemon_library import _pokemon_database
+from typeController import TypeController
 
 def start_service():
     dispatcher = cherrypy.dispatch.RoutesDispatcher()
@@ -10,7 +11,7 @@ def start_service():
 
     pokemonController = PokemonController(pdb=pdb)
     resetController = ResetController(pdb=pdb)
-    typeController = typeController(pdb=pdb)
+    typeController = TypeController(pdb=pdb)
 
     dispatcher.connect('pokemon_get', '/pokemon/:pokemon_name', controller=pokemonController, action = 'GET_KEY', conditions=dict(method=['GET']))
     dispatcher.connect('pokemon_put', '/pokemon/:pokemon_name', controller=pokemonController, action = 'PUT_KEY', conditions=dict(method=['PUT']))
@@ -31,7 +32,7 @@ def start_service():
             },
     '/': {
             'request.dispatch' : dispatcher,
-            }
+        }
     }
 
     cherrypy.config.update(conf)
@@ -39,6 +40,5 @@ def start_service():
     cherrypy.quickstart(app)
 
 
-    if __name__ == '__main__':
-        print("hi")
-        start_service()
+if __name__ == '__main__':
+    start_service()

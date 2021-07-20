@@ -2,7 +2,7 @@ import cherrypy
 import re, json
 from pokemon_library import _pokemon_database
 
-class typeController(object):
+class TypeController(object):
 
 	def __init__(self, pdb=None):
 		if pdb is None:

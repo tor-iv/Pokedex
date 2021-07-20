@@ -17,26 +17,38 @@ class _pokemon_database:
         #     types = i['type']
         #     self.pokemon_type.append(types)
     
-    def get_pokemon(self):
+    def get_pokemon_index(self):
         return self.pokemon_data
 
     def get_pokemon(self, pID):
         pID = str(pID)
+        pokemon = []
         try:
-            for i in self.pokemon_data:
-                if lower(pID) == lower(i['name']['english']):
+            for i in range (0,(len(self.pokemon_data)-1)):
+                print(len(self.pokemon_data)-1)
+                print(self.pokemon_data[-1])
+                if (pID.lower() == self.pokemon_data[i]['name']['english'].lower()):
                     name = self.pokemon_data[i]['name']['english']
                     types = self.pokemon_data[i]['type']
                     stats = self.pokemon_data[i]['base']
-                    image = NULL
-                    pokemon = list((name, types, stats, movie))
+                    print(i)
+                    if i+1 < 10:
+                        print("hi")
+                        image = str("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/00" + str(i+1) + ".png")
+                        print(i)
+                    elif (i+1) < 100:
+                        image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/0" + str(i+1) + ".png"
+                    else:
+                        image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/" + str(i+1) + ".png"
+                    pokemon = list((name, types, stats, image))
+                    print("hi")
         except Exception as ex:
             pokemon = None
         return pokemon
 
     def set_pokemon(self, name, pokemon):
-        for i in self.pokemon_data:
-            if lower(i['name']['english']) == lower(name):
+        for i in range (0,len(self.pokemon_data)):
+            if (self.pokemon_data[i]['name']['english'].lower() == name.lower()):
                 self.pokemon_data[i]['name']['english'] = pokemon[0]
                 self.pokemon_data[i]['type'] = pokemon[1]
                 if pokemon[2]:
@@ -46,8 +58,8 @@ class _pokemon_database:
 
 
     def delete_pokemon(self, name):
-        for i in self.pokemon_data:
-            if lower(i['names']['english']) == lower(name):
+        for i in range (0,len(self.pokemon_data)):
+            if (self.pokemon_data[i]['names']['english'].lower() == name.lower()):
                 del(self.pokemon_data[i])
 
 if __name__ == "__main__":

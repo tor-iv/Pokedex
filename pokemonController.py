@@ -16,23 +16,24 @@ class PokemonController(object):
 	def GET_KEY(self, pokemon_name):
 		output = {'result' : 'success'}
 		pokemon_name = str(pokemon_name)
-
+		pokemon = []
 		try:
 			pokemon = self.pdb.get_pokemon(pokemon_name)
 			if pokemon is not None:
 				output['name'] = pokemon[0]
 				output['types'] = pokemon[1]
 				output['stats'] = pokemon[2]
+				output['image'] = pokemon[3]
 			#	output['title'] = movie[0] figure this out with JSON formatted file
 			#	output['genres'] = movie[1]
 
 			else:
 				output ['result'] = 'error'
-				output['message'] = 'movie not found'
+				output['message'] = 'pokemon not found'
 
 		except Exception as ex:
 			output['result'] = 'error'
-			output['message'] = str(ex)
+			output['message'] = str(ex) + "messed up here"
 
 		return json.dumps(output)
 
@@ -44,7 +45,7 @@ class PokemonController(object):
 
 		pokemon = list()
 		pokemon.append(data['name'])
-		pokemon.append(data['type'])
+		pokemon.append(data['types'])
 		pokemon.append(data['base'])
 		pokemon.append(data['image'])
 		self.pdb.set_pokemon(pokemon_name, pokemon)
@@ -70,8 +71,9 @@ class PokemonController(object):
 		output['pokemon'] = []
 
 		try:
-			for pid in self.pdb.pokemon_data:
-				output['pokemon'].append(self.pdb.get_pokemon(pid))
+			output['pokemon'].append(self.pdb.get_pokemon_index())
+			# for pid in range(0, len(self.pdb.pokemon_data)):
+			# 	output['pokemon'].append(self.pdb.get_pokemon(pid))
 			#	pokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
 			#	output['pokemon'].append(dpokemon) 		JSON format check
 
@@ -86,11 +88,14 @@ class PokemonController(object):
 		data = json.loads(cherrypy.request.body.read().decode('utf-8'))
 
 		try:
-			newID = int(pokemon_data[-1]) + 1
-			self.pdb.pokemon_data.append()
-			self.pdb.pokemon_data[newID]['id'] = newID
-			self.pdb.pokemon_data[newID]['name'] = data['name']
-			self.pdb.pokemon_data[newID]['types'] = data['types']
+			newID = int(self.pdb.pokemon_data[-1]['id']) + 1
+			self.pdb.pokemon_data.append(dict())
+			self.pdb.pokemon_data[newID-1]['id'] = newID
+			self.pdb.pokemon_data[newID-1]['name'] = dict()
+			self.pdb.pokemon_data[newID-1]['name']['english'] = data['name']
+			self.pdb.pokemon_data[newID-1]['types'] = data['types']
+			self.pdb.pokemon_data[newID-1]['image'] = data['image']
+			self.pdb.pokemon_data[newID-1]['stats'] = "???"
 
 			output['id'] = newID
 
