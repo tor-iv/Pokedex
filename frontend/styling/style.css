@@ -1,0 +1,202 @@
+@font-face {
+    font-family: myFont;
+    src: url(../fonts/bauhaus-93/Bauhaus93.ttf);
+}
+
+* {
+    font-family: myFont;
+    background-color: rgb(47, 162, 244);
+}
+
+
+.head {
+    background-color: rgb(47, 162, 244);
+}
+
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(54, 136, 195);
+    border-radius: 10px;
+}
+
+li {
+    float: left;
+    background-color: rgb(54, 136, 195);
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: rgb(54, 136, 195);
+    font-size: 1.5vw;
+}
+
+.body {
+    background-color: rgb(47, 162, 244);
+}
+
+.style {
+    background-color: rgb(47, 162, 244);
+}
+
+.heading {
+    background-color: rgb(54, 136, 195);
+    text-align: center;
+    margin:auto;
+    border-radius: 25px;
+    width: 60%;
+    height: 10%;
+    opacity: 90%;
+}
+
+h1 {
+    padding: 0.5%;  
+    color: white;
+    font-size: 3vw;
+    background-color: rgb(54, 136, 195);
+    border-radius: 25px;
+}
+
+h3 {
+    padding:0.5%;
+    color: white;
+    padding-bottom: 2%;
+    font-size: 1.25vw;
+    background-color: rgb(54, 136, 195);
+    border-radius: 25px;
+}
+
+
+.blastoise {
+    float: left;
+    margin: auto;
+}
+
+.charizard {
+    float: right;
+    margin: auto;
+}
+
+.center-plz {
+    width: 60%;
+    margin: auto;
+}
+
+img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.search-by-name {
+    border-radius: 10px;
+    background-color: rgb(54, 136, 195);
+    opacity: 90%;
+    margin: auto;
+    text-align: center;
+    width: 25%;
+}
+
+.add {
+    border-radius: 10px;
+    background-color: rgb(54, 136, 195);
+    opacity: 90%;
+    margin: auto;
+    text-align: center;
+    width: 25%;
+}
+
+.search-by-type {
+    border-radius: 10px;
+    background-color: rgb(54, 136, 195);
+    opacity: 90%;
+    margin: auto;
+    text-align: center;
+    width: 25%;
+}
+
+form {
+    padding: 2%;
+    color: white;
+    background-color: rgb(54, 136, 195);
+    border-radius: 10px;
+}
+
+.form-label {
+    padding-right: 2%;
+    background-color: rgb(54, 136, 195);
+    border-radius: 10px;
+    font-size: 1vw;
+}
+input {
+    border-radius: 10px;
+    width: 40%;
+    max-height: 40%;
+    color: white;
+    font-size: 1vw;
+}
+
+.submit-button .reset-button {
+    font-size: 1vw;
+}
+
+
+.pokedex {
+    width: 35%;
+    margin: auto;
+}
+
+.example-box {
+    border-radius: 10px;
+    background-color: rgb(25, 90, 137);
+    opacity: 90%;
+    margin: auto;
+    width: 40%;
+    padding: 3%;
+    display: flex;
+    flex: 1 1;
+    height: 100%;
+}
+
+.box-photo {
+    border-radius: 10px;
+    background-color: rgb(25, 90, 137);
+    opacity: 90%;
+    width: 45%;
+    padding: 4%;
+    float: left;
+}
+
+.box-photo img {
+    background-color: rgb(25, 90, 137);
+}
+
+.pokemon-info{
+    border-radius: 10px;
+    background-color: rgb(40, 110, 159);
+    opacity: 90%;
+    width: 45%;
+    float: left;
+}
+
+.info {
+    list-style-type: circle;
+    color: white;
+    background-color: rgb(40, 110, 159);
+}
+
+.info li{
+    font-size: 1vw;
+    background-color: rgb(40, 110, 159);
+    display: inline-block;
+}
+
+.info li:after{
+    content: "\A";
+    white-space: pre;
+}
