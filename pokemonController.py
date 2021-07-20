@@ -4,7 +4,7 @@ from pokemon_library import _pokemon_database
 
 class PokemonController(object):
 
-	def __init__(self, mdb=None):
+	def __init__(self, pdb=None):
 		if pdb is None:
 			self.pdb = _pokemon_database()
 		else:

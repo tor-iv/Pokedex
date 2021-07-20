@@ -2,9 +2,11 @@ import json
 class _pokemon_database:
     def __init__(self):
         self.pokemon_data =  dict()
-    def load_pokemon(self):
+        
+    def load_pokemon(self, pokemon_file):
         # load data
-        f = open('pokemon.json')
+        pokemon_file = str(pokemon_file)
+        f = open(pokemon_file)
         data = json.load(f)
         self.pokemon_data = data
         f.close()
@@ -51,7 +53,7 @@ class _pokemon_database:
 if __name__ == "__main__":
     pdb = _pokemon_database()
     #### pokemon ########
-    pdb.load_pokemon()
+    pdb.load_pokemon('pokemon.json')
     pokemon = pdb.get_pokemon('Bulbasaur')
     print(pokemon[0])
     pokemon[0] = 'ABC'

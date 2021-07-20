@@ -21,7 +21,7 @@ class TestpokemonIndex(unittest.TestCase):
             return False
 
     def test_pokemon_index_get(self):
-        self.reset_data()
+        self.reset_data()t
         r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
@@ -29,7 +29,7 @@ class TestpokemonIndex(unittest.TestCase):
         testpokemon = {}
         pokemon = resp['pokemon']
         for pokemon in pokemon:
-            if pokemon[5] == 'Charizard':
+            if pokemon['name']['english'] == 'Charizard':
                 testpokemon = pokemon
 
         self.assertEqual(testpokemon['name'], 'Charizard')
