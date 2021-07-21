@@ -37,6 +37,7 @@ class TestMovies(unittest.TestCase):
         r = requests.get(self.POKEMON_URL + str(pokemon_id))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
+        print("repsonse on line 56 is :" + str(resp))
         self.assertEqual(resp['name'], 'Squirtle')
         self.assertEqual(resp['types'][0], 'Water')
 
@@ -53,8 +54,9 @@ class TestMovies(unittest.TestCase):
         r = requests.get(self.POKEMON_URL + str(pokemon_id))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
-        self.assertEqual(resp['name'], m['name'])
-        self.assertEqual(resp['types'], m['types'])
+        
+        self.assertEqual(str(resp['name']), str(m['name']))
+        self.assertEqual(str(resp['types']), str(m['types']))
 
     def test_pokemons_delete_key(self):
         self.reset_data()
@@ -64,6 +66,7 @@ class TestMovies(unittest.TestCase):
         r = requests.delete(self.POKEMON_URL + str(pokemon_id), data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
+        print("repsonse of line 67 is: " + str(resp))
         self.assertEqual(resp['result'], 'success')
 
         r = requests.get(self.POKEMON_URL + str(pokemon_id))
