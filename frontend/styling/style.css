@@ -145,6 +145,12 @@ input {
     font-size: 1vw;
 }
 
+.submitButtonSearch {
+    color: white;
+    border-radius: 10px;
+    font-size: 1.2vw;
+}
+
 
 .pokedex {
     width: 35%;

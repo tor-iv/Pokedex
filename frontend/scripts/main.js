@@ -1,17 +1,19 @@
 console.log('page load - entered main.js for js-other api');
+var searchButton = document.getElementById('searchButton');
 
-var submitButton = document.getElementById('submit-button');
-submitButton.onmouseup = getFormInfo;
+searchButton.onmouseup = getPokemonInfo;
 
-function getFormInfo(){
-    console.log('entered get form info');
-    var zip = document.getElementById("input-text-zip").value;
-    makeNetworkCallToZipApi(zip);
+function getPokemonInfo(){
+    console.log('entered get pokemon info');
+    var pokemonName = document.getElementById("searchNameInput").value;
+  	if (pokemonName != "") {
+    	makeGetNetworkCallToPokemonApi(pokemonName);
+    }
 } // end of getFormInfo
 
-function makeNetworkCallToZipApi(zip){
-    console.log('entered makeNetworkCallToZipApi');
-    var url = "https://api.zippopotam.us/us/" + zip;
+function makeGetNetworkCallToPokemonApi(pokemonName){
+    console.log('entered makeGetNetworkCallToPokemonApi');
+    var url = "https://localhost:51055/pokemon/" + pokemonName;
     var xhr = new XMLHttpRequest(); // 1. creating req
     xhr.open("GET", url, true); // 2. configure request attributes
 
@@ -20,7 +22,7 @@ function makeNetworkCallToZipApi(zip){
     xhr.onload = function(e){
         console.log('network response received' + xhr.responseText);
         // do something
-        updateWeatherWithResponse(zip, xhr.responseText);
+        updatePokemonWithResponse(pokemonName, xhr.responseText);
     } // end of onload
 
     // set up onerror - triggered if nw response is error response
@@ -31,26 +33,25 @@ function makeNetworkCallToZipApi(zip){
     xhr.send(null); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
 
-function updateWeatherWithResponse(zip, response_text){
+function updatePokemonWithResponse(pokemonName, response_text){
     // extract json info from response
     var response_json = JSON.parse(response_text);
     // update label with it
-    var label1 = document.getElementById('response-line1');
-  	var label2 = document.getElementById('response-line2');
-    var label3 = document.getElementById('response-line3');
+    var name = document.getElementById('displayName');
+  	var types = document.getElementById('displayType');
+    var stats = document.getElementById('displayStats');
+	var imageURL = document.getElementById('displayImage');
 
-
-    if((response_json['places'][0]['longitude'] == null) || (response_json['places'][0]['latitude'] == null)){
-        label1.innerHTML = 'Apologies, we could not find your zip info.';
+    if((response_json['name'] == null) || (response_json['types'] == null) || (response_json['stats'] == null) || (response_json['image'] == null)){
+        displayName.innerHTML = 'Apologies, we could not find your pokemon info.';
     } else{
-        label1.innerHTML = 'Longitude = ' + response_json['places'][0]['longitude'];
-      	label2.innerHTML = 'Latitude = '  + response_json['places'][0]['latitude'];
-        label3.innerHTML = response_json['places'][0]['place name'] +
-        ', ' + response_json['places'][0]['state abbreviation'];
-        // make nw call to number api
-        var long = parseInt(response_json['places'][0]['longitude']);
-      	var lat = parseInt(response_json['places'][0]['latitude']);
-        makeNetworkCallToWeatherApi(long, lat);
+        displayName.innerHTML = 'Name : ' + response_json['name'];
+      	displayType.innerHTML = 'Types : '  + response_json['types'][0] + ' ' + response_json['types'][1];
+        displayStats.innerHTML = 'Stats' + '\n\t' + 'HP ' + response_json['stats']['HP'] + '\n\t';
+        'Attack ' + response_json['stats']['Attack'] + 'Defense ' + response_json['stats']['Defense'] + 'Sp. Attack ' + response_json['stats']['Sp. Attack'] +
+          'Sp. Defense ' + response_json['stats']['Sp. Defense'] + 'Speed ' + response_json['stats']['Speed'];
+      	imageURL = response_json['image'];
+      	displayImage.src = imageURL;
     }
 
 } // end of updateAgeWithResponse
