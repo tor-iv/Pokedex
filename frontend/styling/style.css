@@ -188,6 +188,7 @@ input {
     opacity: 90%;
     width: 45%;
     float: left;
+    position: center
 }
 
 .info {

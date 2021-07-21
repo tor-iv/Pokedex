@@ -54,10 +54,16 @@ function updatePokemonWithResponse(pokemonName, response_text){
     } else{
         displayName.innerHTML = 'Name : ' + response_json['name'];
       	displayType.innerHTML = 'Types : '  + response_json['types'][0] + ' ' + response_json['types'][1];
-        displayStats.innerHTML = 'Stats' + '\n\t' + 'HP ' + response_json['stats']['HP'] + '\n\t';
-        'Attack ' + response_json['stats']['Attack'] + 'Defense ' + response_json['stats']['Defense'] + 'Sp. Attack ' + response_json['stats']['Sp. Attack'] +
-          'Sp. Defense ' + response_json['stats']['Sp. Defense'] + 'Speed ' + response_json['stats']['Speed'];
+            var stats1 = 'Stats'
+            var stats2 = 'HP ' + response_json['stats']['HP'];
+            var stats3 = 'Attack ' + response_json['stats']['Attack'];
+            var stats4 = 'Defense ' + response_json['stats']['Defense']; 
+            var stats5 = 'Sp. Attack ' + response_json['stats']['Sp. Attack'];
+            var stats5 = 'Sp. Defense ' + response_json['stats']['Sp. Defense'];
+            var stats6 = 'Speed ' + response_json['stats']['Speed'];
+            displayStats.innerHTML = stats1 + "<br />" + stats2 + "<br />" + stats3 + "<br />" + stats4 + "<br />" + stats5 + "<br />" + stats6
       	imageURL = response_json['image'];
+        
       	displayImage.src = imageURL;
     }
 
