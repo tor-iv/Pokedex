@@ -5,11 +5,11 @@ from pokemon_library import _pokemon_database
 class TypeController(object):
 
 	def __init__(self, pdb=None):
-		if pdb is None:
-			self.pdb = _pokemon_database()
-		#	self.pdb.load_ratings('ratings.dat') will need to change this
-		else:
-			self.pdb = pdb
+		# if pdb is None:
+		# 	self.pdb = _pokemon_database()
+		# #	self.pdb.load_ratings('ratings.dat') will need to change this
+		# else:
+		self.pdb = pdb
 
 	def GET_KEY(self, pokemon_type):
 		output = {'result' : 'success'}

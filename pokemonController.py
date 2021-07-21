@@ -5,10 +5,10 @@ from pokemon_library import _pokemon_database
 class PokemonController(object):
 
 	def __init__(self, pdb=None):
-		if pdb is None:
-			self.pdb = _pokemon_database()
-		else:
-			self.pdb = pdb
+		# if pdb is None:
+		# 	self.pdb = _pokemon_database()
+		# else:
+		self.pdb = pdb
 
 		self.pdb.load_pokemon('pokemon.json') # was movies.dat
 
@@ -19,7 +19,8 @@ class PokemonController(object):
 		pokemon = []
 		try:
 			pokemon = self.pdb.get_pokemon(pokemon_name)
-			if pokemon is not None:
+			print("inside get key pokemon is: " + str(pokemon))
+			if (pokemon is not None) or (pokemon == []):
 				output['name'] = pokemon[0]
 				output['types'] = pokemon[1]
 				output['stats'] = pokemon[2]
@@ -33,7 +34,7 @@ class PokemonController(object):
 
 		except Exception as ex:
 			output['result'] = 'error'
-			output['message'] = str(ex) + "messed up here"
+			output['message'] = str(ex) + " messed up here"
 
 		return json.dumps(output)
 
@@ -52,14 +53,14 @@ class PokemonController(object):
 
 		return json.dumps(output)
 
-	def DELETE_KEY(self, pokemon_id):
-		
+	def DELETE_KEY(self, pokemon_name):
 		output = {'result' : 'success'}
 
-		pokemon_name = str(pokemon_name)
+		pID = str(pokemon_name)
 
 		try:
-			self.pdb.delete_pokemon(pokemon_name)
+			self.pdb.delete_pokemon(pID)
+					
 		except Exception as ex:
 			output['result'] = 'failure'
 			output['message'] = str(ex)
@@ -76,7 +77,7 @@ class PokemonController(object):
 			# 	output['pokemon'].append(self.pdb.get_pokemon(pid))
 			#	pokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
 			#	output['pokemon'].append(dpokemon) 		JSON format check
-
+			
 		except Exception as ex:
 			output['result'] = 'error'
 			output['message'] = str(ex)
@@ -93,9 +94,9 @@ class PokemonController(object):
 			self.pdb.pokemon_data[newID-1]['id'] = newID
 			self.pdb.pokemon_data[newID-1]['name'] = dict()
 			self.pdb.pokemon_data[newID-1]['name']['english'] = data['name']
-			self.pdb.pokemon_data[newID-1]['types'] = data['types']
+			self.pdb.pokemon_data[newID-1]['type'] = data['types']
 			self.pdb.pokemon_data[newID-1]['image'] = data['image']
-			self.pdb.pokemon_data[newID-1]['stats'] = "???"
+			self.pdb.pokemon_data[newID-1]['base'] = "???"
 
 			output['id'] = newID
 
@@ -109,11 +110,9 @@ class PokemonController(object):
 
 	def DELETE_INDEX(self):
 		output = {'result' : 'success'}
-
 		try:
-			allPokemon = list(self.mdb.get_pokemon())
-			for pID in allPokemon:
-				self.mdb.delete_pokemon(pID)
+			self.pdb.clear_data()
+			# self.pdb.pokemon_data
 
 		except Exception as ex:
 			output['result'] ='failure'

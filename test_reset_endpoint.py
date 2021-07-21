@@ -15,17 +15,19 @@ class TestReset(unittest.TestCase):
 		self.assertEqual(resp['result'], 'success')
 		r = requests.get(self.SITE_URL + '/pokemon/')
 		resp = json.loads(r.content.decode())
-		pokemon = resp['pokemon']
-		self.assertEqual(pokemon[0]['name'], 'Bulbasaur')
+		pokemon = resp['pokemon'][0][0]
+		self.assertEqual(str(pokemon['name']['english']), 'Bulbasaur')
 
 	def test_put_reset_key(self):
 		m = {}
 		r = requests.put(self.RESET_URL, json.dumps(m))
 
-		# Change Movie Title and Genre
+		# Change 
 		pokemon_id = 'Bulbasaur'
-		m['name'] = 'Shreya'
-		m['type'] = 'Fire'
+		m['name'] = 'bulbasaur'
+		m['types'] = 'Fire'
+		m['image'] = 'hello'
+		m['base'] = '???'
 		r = requests.put(self.SITE_URL + '/pokemon/' + str(pokemon_id), data=json.dumps(m))
 
 		# Reset the changed movie back to original
@@ -37,8 +39,8 @@ class TestReset(unittest.TestCase):
 		# Check if effective
 		r = requests.get(self.SITE_URL + '/pokemon/')
 		resp = json.loads(r.content.decode())	
-		pokemon = resp['pokemon']
-		self.assertEqual(pokemon[0]['name']['english'], 'Bulbasaur')
+		pokemon = resp['pokemon'][0][0]
+		self.assertEqual(str(pokemon['name']['english']), 'Bulbasaur')
 
 
 

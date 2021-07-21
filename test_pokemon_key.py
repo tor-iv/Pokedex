@@ -28,7 +28,7 @@ class TestMovies(unittest.TestCase):
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
         self.assertEqual(resp['name'], 'Bulbasaur')
-        self.assertEqual(resp['types'], 'Grass')
+        self.assertEqual(resp['types'][0], 'Grass')
 
     def test_pokemon_put_key(self):
         self.reset_data()
@@ -38,11 +38,13 @@ class TestMovies(unittest.TestCase):
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
         self.assertEqual(resp['name'], 'Squirtle')
-        self.assertEqual(resp['type'], 'Water')
+        self.assertEqual(resp['types'][0], 'Water')
 
         m = {}
-        m['name'] = 'Tor'
-        m['type'] = 'Grass'
+        m['name'] = 'Squirtle'
+        m['types'] = 'Fire'
+        m['image'] = 'hello'
+        m['base'] = '???'
         r = requests.put(self.POKEMON_URL + str(pokemon_id), data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
@@ -52,7 +54,7 @@ class TestMovies(unittest.TestCase):
         self.assertTrue(self.is_json(r.content.decode('utf-8')))
         resp = json.loads(r.content.decode('utf-8'))
         self.assertEqual(resp['name'], m['name'])
-        self.assertEqual(resp['type'], m['type'])
+        self.assertEqual(resp['types'], m['types'])
 
     def test_pokemons_delete_key(self):
         self.reset_data()

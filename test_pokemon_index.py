@@ -21,18 +21,16 @@ class TestpokemonIndex(unittest.TestCase):
             return False
 
     def test_pokemon_index_get(self):
-        self.reset_data()t
+        self.reset_data()
         r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-
         testpokemon = {}
-        pokemon = resp['pokemon']
-        for pokemon in pokemon:
-            if pokemon['name']['english'] == 'Charizard':
-                testpokemon = pokemon
+        for poke in resp['pokemon'][0]:
+            if poke['name']['english'] == 'Charizard':
+                testpokemon = poke
 
-        self.assertEqual(testpokemon['name'], 'Charizard')
+        self.assertEqual(testpokemon['name']['english'], 'Charizard')
         self.assertEqual(testpokemon['type'][0], 'Fire')
 
     def test_pokemon_index_post(self):
@@ -40,18 +38,21 @@ class TestpokemonIndex(unittest.TestCase):
 
         m = {}
         m['name'] = 'Yaseen'
-        m['type'] = 'Water'
+        m['types'] = 'Water'
+        m['image'] = 'hello'
+        m['base'] = '???'
         r = requests.post(self.POKEMON_URL, data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         self.assertEqual(resp['result'], 'success')
         self.assertEqual(resp['id'], 810)
 
-        r = requests.get(self.POKEMON_URL + str(resp['name']))
+        r = requests.get(self.POKEMON_URL + str(m['name']))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
+        
         self.assertEqual(resp['name'], m['name'])
-        self.assertEqual(resp['type'], m['type'])
+        self.assertEqual(resp['types'], m['types'])
 
     def test_pokemon_index_delete(self):
         self.reset_data()
@@ -60,13 +61,14 @@ class TestpokemonIndex(unittest.TestCase):
         r = requests.delete(self.POKEMON_URL, data = json.dumps(m))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
+        print(resp)
         self.assertEqual(resp['result'], 'success')
 
         r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         pokemon = resp['pokemon']
-        self.assertFalse(pokemon)
+        self.assertTrue(pokemon, [[]])
 
 if __name__ == "__main__":
     unittest.main()
