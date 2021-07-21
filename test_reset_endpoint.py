@@ -11,6 +11,7 @@ class TestReset(unittest.TestCase):
 	def test_put_reset_index(self):
 		m = {}
 		r = requests.put(self.RESET_URL, json.dumps(m))
+		print("this is before the error" + str(r))
 		resp = json.loads(r.content.decode())
 		self.assertEqual(resp['result'], 'success')
 		r = requests.get(self.SITE_URL + '/pokemon/')

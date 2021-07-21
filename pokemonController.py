@@ -27,7 +27,7 @@ class PokemonController(object):
 				output['image'] = pokemon[3]
 			#	output['title'] = movie[0] figure this out with JSON formatted file
 			#	output['genres'] = movie[1]
-
+				print("makes it to here and out put is: " + str(output))
 			else:
 				output ['result'] = 'error'
 				output['message'] = 'pokemon not found'

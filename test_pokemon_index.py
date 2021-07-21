@@ -52,8 +52,8 @@ class TestpokemonIndex(unittest.TestCase):
         resp = json.loads(r.content.decode())
 
     #    print("here is error:" + resp['name'] + "and" + m['name'])
-
-        self.assertEqual(resp['name'], m['name'])
+        print(" response is :" + str(resp))
+        self.assertEqual(str(resp['name']), str(m['name']))
         self.assertEqual(resp['types'], m['types'])
 
     def test_pokemon_index_delete(self):

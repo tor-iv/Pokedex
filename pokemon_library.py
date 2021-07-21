@@ -6,9 +6,16 @@ class _pokemon_database:
     def load_pokemon(self, pokemon_file):
         # load data
         pokemon_file = str(pokemon_file)
-        f = open(pokemon_file, encoding = "utf8")
+        f = open(pokemon_file) #encoding = "utf8"
         data = json.load(f)
         self.pokemon_data = data
+        for i in range (0,(len(self.pokemon_data))):
+            if i+1 < 10:
+                image = str("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/00" + str(i+1) + ".png")
+            elif (i+1) < 100:
+                image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/0" + str(i+1) + ".png"
+            else:
+                image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/" + str(i+1) + ".png"
         f.close()
         #load names and type
         # for i in data:
@@ -16,6 +23,15 @@ class _pokemon_database:
         #     self.pokemon_name.append(name)
         #     types = i['type']
         #     self.pokemon_type.append(types)
+        
+    def clear_data(self):
+        self.pokemon_data = list()
+        self.pokemon_names = set()
+        
+    def reset_data(self):
+        self.clear_data()
+        self.load_pokemon('pokemon.json')
+
 
     def get_pokemon_index(self):
         return self.pokemon_data
@@ -24,21 +40,24 @@ class _pokemon_database:
         pID = str(pID)
         pokemon = []
         try:
-            for i in range (0,(len(self.pokemon_data)-1)):
+            for i in range (0,(len(self.pokemon_data))):
                 print(len(self.pokemon_data)-1)
                 print(self.pokemon_data[-1])
                 if (pID.lower() == self.pokemon_data[i]['name']['english'].lower()):
                     name = self.pokemon_data[i]['name']['english']
                     types = self.pokemon_data[i]['type']
                     stats = self.pokemon_data[i]['base']
+                    image = self.pokemon_data[i]['image']
                     print(i)
-                    if i+1 < 10:
-                        image = str("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/00" + str(i+1) + ".png")
-                    elif (i+1) < 100:
-                        image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/0" + str(i+1) + ".png"
-                    else:
-                        image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/" + str(i+1) + ".png"
+                    # if i+1 < 10:
+                    #     image = str("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/00" + str(i+1) + ".png")
+                    # elif (i+1) < 100:
+                    #     image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/0" + str(i+1) + ".png"
+                    # else:
+                    #     image = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/images/" + str(i+1) + ".png"
                     pokemon = list((name, types, stats, image))
+        except IndexError:
+            pokemon = None
         except Exception as ex:
             pokemon = None
         return pokemon
