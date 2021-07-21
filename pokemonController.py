@@ -31,6 +31,9 @@ class PokemonController(object):
 			else:
 				output ['result'] = 'error'
 				output['message'] = 'pokemon not found'
+		except IndexError:
+			output ['result'] = 'error'
+			output['message'] = 'pokemon not found'
 
 		except Exception as ex:
 			output['result'] = 'error'
