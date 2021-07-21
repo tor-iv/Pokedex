@@ -60,7 +60,7 @@ class PokemonController(object):
 
 		try:
 			self.pdb.delete_pokemon(pID)
-					
+
 		except Exception as ex:
 			output['result'] = 'failure'
 			output['message'] = str(ex)
@@ -77,7 +77,7 @@ class PokemonController(object):
 			# 	output['pokemon'].append(self.pdb.get_pokemon(pid))
 			#	pokemon = {'id': pid, 'name' : movie[0], 'type' : movie[1]}
 			#	output['pokemon'].append(dpokemon) 		JSON format check
-			
+
 		except Exception as ex:
 			output['result'] = 'error'
 			output['message'] = str(ex)
@@ -111,7 +111,7 @@ class PokemonController(object):
 	def DELETE_INDEX(self):
 		output = {'result' : 'success'}
 		try:
-			self.pdb.clear_data()
+			self.pdb.delete_all_pokemon()
 			# self.pdb.pokemon_data
 
 		except Exception as ex:
@@ -119,4 +119,3 @@ class PokemonController(object):
 			output['message'] = str(ex)
 
 		return json.dumps(output)
-

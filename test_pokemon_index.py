@@ -50,7 +50,9 @@ class TestpokemonIndex(unittest.TestCase):
         r = requests.get(self.POKEMON_URL + str(m['name']))
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
-        
+
+    #    print("here is error:" + resp['name'] + "and" + m['name'])
+
         self.assertEqual(resp['name'], m['name'])
         self.assertEqual(resp['types'], m['types'])
 
@@ -62,7 +64,7 @@ class TestpokemonIndex(unittest.TestCase):
         self.assertTrue(self.is_json(r.content.decode()))
         resp = json.loads(r.content.decode())
         print(resp)
-        self.assertEqual(resp['result'], 'success')
+        self.assertTrue(resp['result'], 'success')
 
         r = requests.get(self.POKEMON_URL)
         self.assertTrue(self.is_json(r.content.decode()))
@@ -72,4 +74,3 @@ class TestpokemonIndex(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
