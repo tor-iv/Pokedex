@@ -32,6 +32,7 @@ def start_service():
             },
     '/': {
             'request.dispatch' : dispatcher,
+            'tools.CORS.on' : True, # configuration for CORS
         }
     }
 
@@ -39,6 +40,20 @@ def start_service():
     app = cherrypy.tree.mount(None, config=conf)
     cherrypy.quickstart(app)
 
+# class for CORS
+class optionsController:
+    def OPTIONS(self, *args, **kwargs):
+        return ""
+
+# function for CORS
+def CORS():
+    cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+    cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE"
+    cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"
+
+
+
 
 if __name__ == '__main__':
+    cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS) # CORS
     start_service()
