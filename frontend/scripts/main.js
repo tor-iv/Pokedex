@@ -1,7 +1,14 @@
-console.log('page load - entered main.js for js-other api');
-var searchButton = document.getElementById('searchButton');
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("DOM fully loaded and parsed");
+    //Your code to bind event handler
+    console.log('page load - entered main.js for js-other api');
 
-searchButton.onmouseup = getPokemonInfo;
+    var searchButton = document.getElementById('searchButton');
+    searchButton.onmouseup = getPokemonInfo;
+    }
+);
+
+
 
 function getPokemonInfo(){
     console.log('entered get pokemon info');
@@ -13,7 +20,7 @@ function getPokemonInfo(){
 
 function makeGetNetworkCallToPokemonApi(pokemonName){
     console.log('entered makeGetNetworkCallToPokemonApi');
-    var url = "https://localhost:51055/pokemon/" + pokemonName;
+    var url = "http://localhost:51055/pokemon/" + pokemonName;
     var xhr = new XMLHttpRequest(); // 1. creating req
     xhr.open("GET", url, true); // 2. configure request attributes
 
@@ -25,7 +32,7 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
         updatePokemonWithResponse(pokemonName, xhr.responseText);
     } // end of onload
 
-    // set up onerror - triggered if nw response is error response
+    // set up onerror - triggered if n response is error response
     xhr.onerror = function(e){
         console.error(xhr.statusText);
     } // end of onerror
