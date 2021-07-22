@@ -5,11 +5,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     var searchButton = document.getElementById('searchButton');
     searchButton.onmouseup = getPokemonInfo;
+
+   	var getAllButton = document.getElementById('getAll');
+    getAllButton.onmouseup = makeNetworkCallToPokemonAll;
     }
 );
 
 
-
+// functions for get a pokemon
 function getPokemonInfo(){
     console.log('entered get pokemon info');
     var pokemonName = document.getElementById("searchNameInput").value;
@@ -51,9 +54,18 @@ function updatePokemonWithResponse(pokemonName, response_text){
 
     if((response_json['name'] == null) || (response_json['types'] == null) || (response_json['stats'] == null) || (response_json['image'] == null)){
         displayName.innerHTML = 'Apologies, we could not find your pokemon info.';
-    } else{
+        displayType.innerHTML = ' ';
+      	displayStats.innerHTML = ' ';
+    } else if (response_json['message'] == 'pokemon not found') {
+		displayName.innerHTML = 'Apologies, we could not find your pokemon info. 2';
+      	displayType.innerHTML = ' ';
+      	displayStats.innerHTML = ' ';
+    }
+               
+  	else{
         displayName.innerHTML = 'Name : ' + response_json['name'];
       	displayType.innerHTML = 'Types : '  + response_json['types'][0] + ' ' + response_json['types'][1];
+        
             var stats1 = 'Stats'
             var stats2 = 'HP ' + response_json['stats']['HP'];
             var stats3 = 'Attack ' + response_json['stats']['Attack'];
@@ -69,34 +81,45 @@ function updatePokemonWithResponse(pokemonName, response_text){
 
 } // end of updateAgeWithResponse
 
-function makeNetworkCallToWeatherApi(long, lat){
-    console.log('enetered makeNetworkCallToWeatherApi');
-    var url = "http://www.7timer.info/bin/astro.php?lon="+long+"&lat="+lat+"&ac=0&lang=en&unit=metric&output=internal&tzshift=0";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+function makeNetworkCallToPokemonAll(){
+    console.log('entered makeGetNetworkCallToPokemonApi');
+    var url = "http://localhost:51055/pokemon/";
+    var xhr = new XMLHttpRequest(); // 1. creating req
+    xhr.open("GET", url, true); // 2. configure request attributes
 
-    xhr.onload = function(e) {
-        console.log('got nw response from weatherapi');
-        updateTriviaWithResponse(url);
-    }
+    // set up onload - triggered when nw response is received
+    // must be defined before making the network call
+    xhr.onload = function(e){
+        console.log('network response received' + xhr.responseText);
+        // do something
+        updatePokemonWithResponseAll(xhr.responseText);
+    } // end of onload
 
+    // set up onerror - triggered if n response is error response
     xhr.onerror = function(e){
         console.error(xhr.statusText);
-    }
+    } // end of onerror
 
-    xhr.send(null); // send request without bosy
-} // end of makeNetworkCallToNumbersApi
+    xhr.send(null); // actually send req with no message body
+} // end of makeNetworkCallToAgeApi
 
-function updateTriviaWithResponse(url){
+function updatePokemonWithResponseAll(response_text){
     console.log('enetered updateTriviaWithResponse');
-    var label2 = document.getElementById("response-line2");
-//    label2.innerHTML = response_text;
-
-    // dynamically adding a label
-
-  	var img = document.createElement('img');
-    img.src = url;
-    var container = document.getElementById('response').appendChild(img);
+    var response_json = JSON.parse(response_text);
+    var pokemon_list = response_json['pokemon'][0]
+    console.log(pokemon_list);
+    displayName.innerHTML = ' ';
+    displayType.innerHTML = ' ';
+    displayStats.innerHTML = ' ';
+    var pokemonInfo = document.getElementById('pokemonInfo')
+    for(var i=0; i < pokemon_list.length; i++){
+   		var newDiv = document.createElement('pokemon_info');
+      	var temp_name = pokemon_list[i]['name']['english']
+   		newDiv.id = 'r'+i;
+   		newDiv.className = 'name-list';
+   		pokemonInfo.appendChild(newDiv);
+      	newDiv.innerHTML = temp_name + "<br />";
+    }
 
 
 } // end of updateTriviaWithResponse

@@ -167,7 +167,9 @@ input {
     display: flex;
     flex: 1 1;
     height: 100%;
+    /* overflow: auto; */
 }
+
 
 .box-photo {
     border-radius: 10px;
@@ -188,7 +190,20 @@ input {
     opacity: 90%;
     width: 45%;
     float: left;
-    position: center
+    position: center;
+    /* overflow: auto; */
+    /* min-height: 100px; */
+}
+
+.name-list{
+    background-color: rgb(40,110 , 159);
+    color: white;
+    text-align: center;
+    font-size: 1vw;
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .info {
