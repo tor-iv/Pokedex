@@ -75,6 +75,11 @@ function updatePokemonWithResponse(pokemonName, response_text){
             var stats6 = 'Speed ' + response_json['stats']['Speed'];
             displayStats.innerHTML = stats1 + "<br />" + stats2 + "<br />" + stats3 + "<br />" + stats4 + "<br />" + stats5 + "<br />" + stats6
       	imageURL = response_json['image'];
+        // var names = document.getElementsByClassName('name-list');
+        // while(names[0]) {
+        //     names[0].parentNode.removeChild(names[0]);
+        // }​
+        document.querySelectorAll('.name-list').forEach(e => e.remove());
         
       	displayImage.src = imageURL;
     }
@@ -111,6 +116,7 @@ function updatePokemonWithResponseAll(response_text){
     displayName.innerHTML = ' ';
     displayType.innerHTML = ' ';
     displayStats.innerHTML = ' ';
+    displayImage.src = '../images/group.png';
     var pokemonInfo = document.getElementById('pokemonInfo')
     for(var i=0; i < pokemon_list.length; i++){
    		var newDiv = document.createElement('pokemon_info');
