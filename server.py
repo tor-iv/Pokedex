@@ -23,6 +23,8 @@ def start_service():
     dispatcher.connect('reset_put', '/reset/:pokemon_name', controller=resetController, action = 'PUT_KEY', conditions=dict(method=['PUT']))
     dispatcher.connect('reset_index_put', '/reset/', controller=resetController, action = 'PUT_INDEX', conditions=dict(method=['PUT']))
 
+    dispatcher.connect('pokemon_options', '/pokemon/', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
+    dispatcher.connect('pokemon_key_options', '/pokemon/:pokemon_name', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
 
     conf = {
             'global' : {
