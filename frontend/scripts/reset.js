@@ -48,15 +48,15 @@ function updatePokemonWithResponse(pokemonName, response_text){
     var response_json = JSON.parse(response_text);
     // update label with it
    var output = document.getElementById('output')
-   output.innerHTML(pokemonName + response_json['response'])
+   output.innerHTML = pokemonName + response_json['response']
 
 } // end of updateAgeWithResponse
 
 function makeNetworkCallToPokemonAll(){
     console.log('entered makeGetNetworkCallToPokemonApi');
-    var url = "http://localhost:51055/pokemon/";
+    var url = "http://localhost:51055/reset/";
     var xhr = new XMLHttpRequest(); // 1. creating req
-    xhr.open("GET", url, true); // 2. configure request attributes
+    xhr.open("PUT", url, true); // 2. configure request attributes
 
     // set up onload - triggered when nw response is received
     // must be defined before making the network call
@@ -75,23 +75,11 @@ function makeNetworkCallToPokemonAll(){
 } // end of makeNetworkCallToAgeApi
 
 function updatePokemonWithResponseAll(response_text){
-    console.log('enetered updateTriviaWithResponse');
-    var response_json = JSON.parse(response_text);
-    var pokemon_list = response_json['pokemon'][0]
-    console.log(pokemon_list);
-    displayName.innerHTML = ' ';
-    displayType.innerHTML = ' ';
-    displayStats.innerHTML = ' ';
-    displayImage.src = '../images/group.png';
-    var pokemonInfo = document.getElementById('pokemonInfo')
-    for(var i=0; i < pokemon_list.length; i++){
-   		var newDiv = document.createElement('pokemon_info');
-      	var temp_name = pokemon_list[i]['name']['english']
-   		newDiv.id = 'r'+i;
-   		newDiv.className = 'name-list';
-   		pokemonInfo.appendChild(newDiv);
-      	newDiv.innerHTML = temp_name + "<br />";
-    }
+     // extract json info from response
+     var response_json = JSON.parse(response_text);
+     // update label with it
+    var output2 = document.getElementById('output')
+    output2.innerHTML = response_json['response']
 
 
 } // end of updateTriviaWithResponse
