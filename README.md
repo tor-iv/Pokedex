@@ -44,8 +44,11 @@ Google Presentation [Link](https://docs.google.com/presentation/d/1SMJPQVrhuJrQn
 **OBJECT ORIENTED API**
 
 JSON format for Pokemon
+
+
 | Key | Value |
 | ------ | ------ |
+| id   |  1  |
 | name | Bulbasaur |
 | type | Grass |
 | base |       |
@@ -55,3 +58,8 @@ JSON format for Pokemon
 | Sp. Attack|  65   |
 | Sp. Defense   |  65   |
 | Speed   |  45   |
+
+
+**USER INTERACTION**
+
+Our Pokedex contained a couple pages for the user to interact with. First there is the main loading page. When first accessing the site the user will land on the search page where they can search for a specific pokemon by name, or get a list of all the pokemon. Then there is a modify page where a user can modify a pokemon's name, type, stats, and upload an image for them. Next we have an add pokemon page where the user has the same controls as modifying a pokemon. Finally there is a reset page and a delete page. Where the user has the option to reset a pokemon in the list to it's original values, or can delete a certain pokemon or all if they would like.
