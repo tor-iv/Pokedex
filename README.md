@@ -36,10 +36,8 @@ Subjectively pretty high complexity, considering there are many moving parts wit
 
 Google Presentation [Link](https://docs.google.com/presentation/d/1SMJPQVrhuJrQnuTn6PggtxTwEj3u8_uWXUhT5RFElXc/edit?usp=sharing)
 
-<figure class="video_container">
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6dK5WThIreAupdhY9UErOCJ7HzTl7AWZq-s6fRf41l3ktga4-fjHf_tkvK1YdTNkOSe2gJ8YPM5JL/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-</figure>
 
 **REST API SPECIFICATION**
 
+[Here](https://imgur.com/a/DDryA05) is the Rest API Specification Table
 
