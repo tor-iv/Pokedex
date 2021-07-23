@@ -45,7 +45,8 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
         "stats" : stats.value,
         "image" : url.value,
     }
-    xhr.send(String(data)); // actually send req with no message body
+    data = String(data)
+    xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
 
 function updatePokemonWithResponse(pokemonName, response_text){

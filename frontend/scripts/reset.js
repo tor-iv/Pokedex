@@ -36,11 +36,12 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
     } // end of onload
 
     // set up onerror - triggered if n response is error response
-    xhr.onerror = function(e){
-        console.error(xhr.statusText);
-    } // end of onerror
+    var data = {
+        "stuff": 'stuff'
+    }
+    // data = String(data)
 
-    xhr.send(null); // actually send req with no message body
+    xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
 
 function updatePokemonWithResponse(pokemonName, response_text){
@@ -70,8 +71,11 @@ function makeNetworkCallToPokemonAll(){
     xhr.onerror = function(e){
         console.error(xhr.statusText);
     } // end of onerror
-
-    xhr.send(null); // actually send req with no message body
+    var data = {
+        "stuff": 'stuff'
+    }
+    // data = String(data)
+    xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
 
 function updatePokemonWithResponseAll(response_text){
