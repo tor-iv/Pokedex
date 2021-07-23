@@ -65,7 +65,7 @@ function updatePokemonWithResponse(pokemonName, response_text){
   	else{
         displayName.innerHTML = 'Name : ' + response_json['name'];
       	displayType.innerHTML = 'Types : '  + response_json['types'][0] + ' ' + response_json['types'][1];
-        
+        if (response_json['stats']['HP']) {
             var stats1 = 'Stats'
             var stats2 = 'HP ' + response_json['stats']['HP'];
             var stats3 = 'Attack ' + response_json['stats']['Attack'];
@@ -74,6 +74,10 @@ function updatePokemonWithResponse(pokemonName, response_text){
             var stats5 = 'Sp. Defense ' + response_json['stats']['Sp. Defense'];
             var stats6 = 'Speed ' + response_json['stats']['Speed'];
             displayStats.innerHTML = stats1 + "<br />" + stats2 + "<br />" + stats3 + "<br />" + stats4 + "<br />" + stats5 + "<br />" + stats6
+        }
+        else {
+            displayStats.innerHTML = response_json['stats']
+        }
       	imageURL = response_json['image'];
         // var names = document.getElementsByClassName('name-list');
         // while(names[0]) {

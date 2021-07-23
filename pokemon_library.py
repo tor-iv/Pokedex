@@ -81,8 +81,9 @@ class _pokemon_database:
                 del(self.pokemon_data[i])
 
     def delete_all_pokemon(self):
-        for i in range (0,len(self.pokemon_data)):
-            del(self.pokemon_data[i])
+        # for i in range (0,len(self.pokemon_data)):
+        #     del(self.pokemon_data[i])
+        self.pokemon_data = dict()
 
 
 if __name__ == "__main__":
