@@ -12,7 +12,7 @@ class ResetController(object):
 
 	def PUT_INDEX(self):
 		output = {'result' : 'success'}
-		data = json.loads(cherrypy.request.body.read().decode())
+		# data = json.loads(cherrypy.request.body.read().decode())
 		# tmppdb = _pokemon_database()
 		# tmppdb.load_pokemon('pokemon.json')
 		# self.pdb = tmppdb
@@ -31,7 +31,7 @@ class ResetController(object):
 		pid = str(pokemon_name)
 	
 		try:
-			data = json.loads(cherrypy.request.body.read().decode())
+			# data = json.loads(cherrypy.request.body.read().decode())
 
 			pdbtmp = _pokemon_database()
 			pdbtmp.load_pokemon('pokemon.json')

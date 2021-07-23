@@ -36,16 +36,14 @@ function makeModifyNetworkCallToPokemonApi(pokemonName){
     xhr.onerror = function(e){
         console.error(xhr.statusText);
     } // end of onerror
-    var types = document.getElementById('typeInputModify');
-    var stats = document.getElementById('statsInputModify');
-    var url = document.getElementById('imageInputModify')
-    var data = {
-        "name" : pokemonName,
-        "type" : types.value,
-        "stats" : stats.value,
-        "image" : url.value,
-    }
-    data = String(data)
+    var types = document.getElementById('typeInputModify').value;
+    var stats = document.getElementById('statsInputModify').value;
+    var imageUrl = document.getElementById('imageInputModify').value;
+    pokemonName = String(pokemonName);
+    var data = '{"name" : "' + pokemonName + '","types" : "' + types + '","base" : "' + stats + '","image" : "' + imageUrl + '"}';
+    var data2 = '{"name":"bulbasaur", "types":"Im tired", "image": "hello", "base":"???"}';
+    console.log("the data2 from modify is: " + data2);
+    console.log("the data from modify is:" + data);
     xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
 

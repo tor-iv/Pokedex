@@ -25,7 +25,8 @@ def start_service():
 
     dispatcher.connect('pokemon_options', '/pokemon/', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
     dispatcher.connect('pokemon_key_options', '/pokemon/:pokemon_name', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
-
+    dispatcher.connect('reset_options', '/reset/', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
+    dispatcher.connect('reset_key_options', '/reset/:reset_key', controller=optionsController, action='OPTIONS', conditions=dict(method=['OPTIONS']))
     conf = {
             'global' : {
                 'server.thread_pool': 5,

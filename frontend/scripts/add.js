@@ -36,17 +36,12 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
     xhr.onerror = function(e){
         console.error(xhr.statusText);
     } // end of onerror
-    var types = document.getElementById('typeInputAdd');
-    var stats = document.getElementById('statsInputAdd');
-    var url = document.getElementById('imageInputAdd')
-    var data = {
-        "name" : pokemonName,
-        "type" : types.value,
-        "stats" : stats.value,
-        "image" : url.value,
-    }
-    data = String(data)
-    xhr.send(data); // actually send req with no message body
+    var types = document.getElementById('typeInputAdd').value;
+    var stats = document.getElementById('statsInputAdd').value;
+    var imageUrl = document.getElementById('imageInputAdd').value;
+    var data = '{ "name" : "' + pokemonName+ '", "types" : "'+ types + '", "base" : "'+ stats+ '", "image" : "' + imageUrl +'"}';
+    console.log("data is" + data);
+    xhr.send(data);
 } // end of makeNetworkCallToAgeApi
 
 function updatePokemonWithResponse(pokemonName, response_text){

@@ -36,9 +36,8 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
     } // end of onload
 
     // set up onerror - triggered if n response is error response
-    var data = {
-    }
-    // data = String(data)
+    var data = '{}'
+    //data = String(data)
 
     xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
@@ -48,7 +47,7 @@ function updatePokemonWithResponse(pokemonName, response_text){
     var response_json = JSON.parse(response_text);
     // update label with it
    var output = document.getElementById('output')
-   output.innerHTML = pokemonName + response_json['response']
+   output.innerHTML = pokemonName + response_json['result']
 
 } // end of updateAgeWithResponse
 
@@ -70,8 +69,7 @@ function makeNetworkCallToPokemonAll(){
     xhr.onerror = function(e){
         console.error(xhr.statusText);
     } // end of onerror
-    var data = {
-    }
+    var data = {}
     // data = String(data)
     xhr.send(data); // actually send req with no message body
 } // end of makeNetworkCallToAgeApi
@@ -81,7 +79,7 @@ function updatePokemonWithResponseAll(response_text){
      var response_json = JSON.parse(response_text);
      // update label with it
     var output2 = document.getElementById('output')
-    output2.innerHTML = response_json['response']
+    output2.innerHTML = response_json['result']
 
 
 } // end of updateTriviaWithResponse
