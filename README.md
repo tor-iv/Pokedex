@@ -41,3 +41,17 @@ Google Presentation [Link](https://docs.google.com/presentation/d/1SMJPQVrhuJrQn
 
 [Here](https://imgur.com/a/DDryA05) is the Rest API Specification Table
 
+**OBJECT ORIENTED API**
+
+JSON format for Pokemon
+| Key | Value |
+| ------ | ------ |
+| name | Bulbasaur |
+| type | Grass |
+| base |       |
+| HP   |  45   |
+| Attack   |  49   |
+| Defense   |  45   |
+| Sp. Attack|  65   |
+| Sp. Defense   |  65   |
+| Speed   |  45   |
