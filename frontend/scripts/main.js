@@ -64,7 +64,8 @@ function updatePokemonWithResponse(pokemonName, response_text){
                
   	else{
         displayName.innerHTML = 'Name : ' + response_json['name'];
-      	displayType.innerHTML = 'Types : '  + response_json['types'][0] + ' ' + response_json['types'][1];
+      	displayType.innerHTML = 'Types : '  + response_json['types'];
+        //   [0] + ' ' + response_json['types'][1];
         if (response_json['stats']['HP']) {
             var stats1 = 'Stats'
             var stats2 = 'HP ' + response_json['stats']['HP'];
