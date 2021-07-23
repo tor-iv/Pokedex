@@ -77,7 +77,7 @@ function updatePokemonWithResponse(pokemonName, response_text){
             displayStats.innerHTML = stats1 + "<br />" + stats2 + "<br />" + stats3 + "<br />" + stats4 + "<br />" + stats5 + "<br />" + stats6
         }
         else {
-            displayStats.innerHTML = response_json['stats']
+            displayStats.innerHTML = "stats" + response_json['stats'];
         }
       	imageURL = response_json['image'];
         // var names = document.getElementsByClassName('name-list');
