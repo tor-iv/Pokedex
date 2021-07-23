@@ -39,7 +39,7 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
     var types = document.getElementById('typeInputAdd').value;
     var stats = document.getElementById('statsInputAdd').value;
     var imageUrl = document.getElementById('imageInputAdd').value;
-    var data = '{ "name" : "' + pokemonName+ '", "types" : "'+ types + '", "base" : "'+ stats+ '", "image" : "' + imageUrl +'"}';
+    var data = '{ "name" : "' + pokemonName + '", "types" : "'+ types + '", "base" : "'+ stats + '", "image" : "' + imageUrl +'"}';
     console.log("data is" + data);
     xhr.send(data);
 } // end of makeNetworkCallToAgeApi

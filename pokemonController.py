@@ -99,7 +99,7 @@ class PokemonController(object):
 			self.pdb.pokemon_data[newID-1]['name']['english'] = data['name']
 			self.pdb.pokemon_data[newID-1]['type'] = data['types']
 			self.pdb.pokemon_data[newID-1]['image'] = data['image']
-			self.pdb.pokemon_data[newID-1]['base'] = "???"
+			self.pdb.pokemon_data[newID-1]['base'] = data['base']
 
 			output['id'] = newID
 
