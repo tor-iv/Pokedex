@@ -37,7 +37,6 @@ function makeGetNetworkCallToPokemonApi(pokemonName){
 
     // set up onerror - triggered if n response is error response
     var data = {
-        "stuff": 'stuff'
     }
     // data = String(data)
 
@@ -72,7 +71,6 @@ function makeNetworkCallToPokemonAll(){
         console.error(xhr.statusText);
     } // end of onerror
     var data = {
-        "stuff": 'stuff'
     }
     // data = String(data)
     xhr.send(data); // actually send req with no message body

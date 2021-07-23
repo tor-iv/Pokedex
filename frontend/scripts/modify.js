@@ -69,9 +69,9 @@ function updatePokemonWithResponse(pokemonName, response_text){
     }
                
   	else{
-        displayName.innerHTML = name
-      	displayType.innerHTML = type
-        displayStats.innerHTML = stats
+        displayName.innerHTML = "Name" + name
+      	displayType.innerHTML = "Type" + type
+        displayStats.innerHTML = "Stats" + stats
       	imageURL = url;
         // var names = document.getElementsByClassName('name-list');
         // while(names[0]) {
